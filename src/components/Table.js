@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import getPlanets from '../Service/getPlanets';
+import Filters from './Filters';
 
 function Table() {
   const [data, setData] = useState([]);
-  const [search, setSearch] = useState('');
+  const [nameFilter, setNameFilter] = useState('');
   const [filteredPlanets, setfilteredPlanets] = useState([]);
 
   const fetchPlanets = async () => {
@@ -17,23 +18,26 @@ function Table() {
   /* Com o auxilio deste video, conclui o requisito 2 --> https://www.youtube.com/watch?v=Q8JyF3wpsHc */
   useEffect(() => {
     setfilteredPlanets(
-      data.filter((planet) => planet.name.toLowerCase().includes(search.toLowerCase())),
+      data.filter(
+        (planet) => planet.name.toLowerCase().includes(nameFilter.toLowerCase()),
+      ),
     );
-  }, [search, data]);
+  }, [nameFilter, data]);
 
   return (
 
     <div>
       <div>
-        <label htmlFor="search">
+        <label htmlFor="nameFilter">
           <input
-            name="search"
+            name="nameFilter"
             type="text"
             data-testid="name-filter"
-            onChange={ (event) => setSearch(event.target.value) }
+            onChange={ (event) => setNameFilter(event.target.value) }
             placeholder="Digite um planeta"
           />
         </label>
+        <Filters />
       </div>
       <table border="2px solid black">
         <tr>
