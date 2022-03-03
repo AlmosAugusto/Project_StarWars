@@ -1,11 +1,40 @@
-import React, { useContext } from 'react';
-import { StarWarsContext } from '../context';
+import React, { useState, useEffect } from 'react';
+import getPlanets from '../Service/getPlanets';
 
 function Table() {
-  const { data } = useContext(StarWarsContext);
-  console.log(data);
+  const [data, setData] = useState([]);
+  const [search, setSearch] = useState('');
+  const [filteredPlanets, setfilteredPlanets] = useState([]);
+
+  const fetchPlanets = async () => {
+    const response = await getPlanets();
+    setData(response);
+  };
+
+  useEffect(() => {
+    fetchPlanets();
+  }, []);
+  /* Com o auxilio deste video, conclui o requisito 2 --> https://www.youtube.com/watch?v=Q8JyF3wpsHc */
+  useEffect(() => {
+    setfilteredPlanets(
+      data.filter((planet) => planet.name.toLowerCase().includes(search.toLowerCase())),
+    );
+  }, [search, data]);
+
   return (
+
     <div>
+      <div>
+        <label htmlFor="search">
+          <input
+            name="search"
+            type="text"
+            data-testid="name-filter"
+            onChange={ (event) => setSearch(event.target.value) }
+            placeholder="Digite um planeta"
+          />
+        </label>
+      </div>
       <table border="2px solid black">
         <tr>
           <th>Nome</th>
@@ -22,8 +51,8 @@ function Table() {
           <th>Data de Edição</th>
           <th>URL</th>
         </tr>
-        {data.map((planet) => (
-          <tr key="planets">
+        {filteredPlanets.map((planet) => (
+          <tr key={ planet }>
             <td>{planet.name}</td>
             <td>{planet.rotation_period}</td>
             <td>{planet.orbital_period}</td>
