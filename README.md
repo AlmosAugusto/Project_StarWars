@@ -17,8 +17,9 @@
   </summary><br>
   
   - JavaScript
-  - HTML
   - React
+  - HTML
+  - CSS
  
 </details>
 
