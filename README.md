@@ -6,7 +6,7 @@
     <strong>:memo: Sobre o projeto</strong>
   </summary><br>
   
-  - Projeto StarWars desenvolvido na Trybe.
+  - Projeto StarWars desenvolvido na Trybe no módulo de Front-End..
   
   - Desenvolver uma aplicação, onde é possivel filtrar as informações dos planetas, consultando os seus nomes, climas, diametros, população e etc.
 </details>
